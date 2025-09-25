@@ -1,0 +1,34 @@
+{
+  "version": 5,
+  "configurePresets": [
+    {
+      "name": "cross-arm64",
+      "displayName": "Cross ARM64 (Release)",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/arm64/Release",
+      "toolchainFile": "${sourceDir}/toolchains/aarch64-linux-gnu.cmake",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "cross-arm64-debug",
+      "displayName": "Cross ARM64 (Debug)",
+      "binaryDir": "${sourceDir}/build/arm64/Debug",
+      "inherits": "cross-arm64",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "cross-arm64",
+      "configurePreset": "cross-arm64"
+    },
+    {
+      "name": "cross-arm64-debug",
+      "configurePreset": "cross-arm64-debug"
+    }
+  ]
+}
