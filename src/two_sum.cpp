@@ -1,20 +1,25 @@
 #include <iostream>
+#include <vector>
+#include <utility>
 
-int main() {
 
+std::vector<std::pair<int,int>> two_sum(int A[6])
+{
 /***************INIT******************************/
-    int A[6] {1,2,4,6,10,11};
-    int T = 12;
+
+    std::vector<std::pair<int,int>> solutions;
+
+    int T  = 12;
     int *x = &A[0];
     int *y = &A[5];
 
-/***************RECHERHCE COUPLE*****************/
+/***************RECHERCHE COUPLE*****************/
     while(x<y)
     {
         if(*x+*y == T)
         {
             std::cout << "couple trouvé indice : " << *x <<" ; "<< *y << "\n";
-            return 0;
+            solutions.insert(solutions.begin(),std::pair(*x,*y));
         }
         else if (*x+*y < T)
         {
@@ -25,6 +30,13 @@ int main() {
             y=y-1;
         }
     }
-    std::cout << "couple non trouvé \n";
+    return solutions;
+}
+
+int main() {
+    int A[6] {1,2,4,6,10,11};
+
+    two_sum(A);
+
     return 0;
 }
