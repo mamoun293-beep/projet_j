@@ -1,17 +1,30 @@
 #include <iostream>
 #include <vector>
 #include <utility>
+#include <algorithm>
 
+std::vector<int> generate_sorted_vector(int min, int max, size_t size)
+{
+    std::vector<int> input_tab(size); //vector to initialize, used for research of couple
 
-std::vector<std::pair<int,int>> two_sum(int A[6])
+    /*********************** Generation of random number to initialize the vector*************/
+    std::generate(input_tab.begin(),input_tab.end(),[=](){
+        return rand()%(max - min + 1) + min;
+    });
+
+    /************************sort int per croissant order ************************************/
+    std::sort(input_tab.begin(),input_tab.end());
+
+    return input_tab;
+}
+
+std::vector<std::pair<int,int>> two_sum(const std::vector<int>& research,int T, int& count)
 {
 /***************INIT******************************/
 
     std::vector<std::pair<int,int>> solutions;
-
-    int T  = 12;
-    int *x = &A[0];
-    int *y = &A[5];
+    const int *x = research.data();
+    const int *y = research.data() + research.size() - 1;
 
 /***************RECHERCHE COUPLE*****************/
     while(x<y)
@@ -34,9 +47,16 @@ std::vector<std::pair<int,int>> two_sum(int A[6])
 }
 
 int main() {
-    int A[6] {1,2,4,6,10,11};
+    int min = 0;
+    int max = 12;
+    int size = 12;
+    int T = 12;
+    std::vector<int> research;
+    int count = 0;
 
-    two_sum(A);
+    research = generate_sorted_vector(min,max,size);
+    auto couples = two_sum(research,T,count);
 
+    std::cout << "couples trouvé :" << count << "\n";
     return 0;
 }
