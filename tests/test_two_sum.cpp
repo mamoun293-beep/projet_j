@@ -1,9 +1,15 @@
 #include <gtest/gtest.h>
+#include <iostream>
+#include <vector>
+#include <utility>
+#include <algorithm>
+#include "two_sum.hpp"
 
-// Demonstrate some basic assertions.
-TEST(test_two_sum, BasicAssertions) {
-  // Expect two strings not to be equal.
-  EXPECT_STRNE("hello", "world");
-  // Expect equality.
-  EXPECT_EQ(7 * 6, 42);
+/************** Nominal Test *************/
+TEST(TwoSumTest, TwoSumTest_Nominal_Test) {
+  const std::vector<std::pair<int,int>> entry;
+  int T = 12;
+  int count = 2;
+
+
 }
