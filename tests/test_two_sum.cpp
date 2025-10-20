@@ -6,10 +6,23 @@
 #include "two_sum.hpp"
 
 /************** Nominal Test *************/
-TEST(TwoSumTest, TwoSumTest_Nominal_Test) {
-  const std::vector<std::pair<int,int>> entry;
-  int T = 12;
-  int count = 2;
 
+TEST(TwoSumTest, TwoSumTest_Nominal_Test) {
+
+/************** Input declaration *******/
+
+  std::vector<std::pair<int,int>> couples;
+  std::vector<std::pair<int,int>> expected = {{0,5},{2,3}};
+  const std::vector<int> input = {1,3,4,8,10,11};
+  int T = 12;
+  int count = 0;
+
+/************** Verification ***********/ 
+  couples = two_sum(input,T,count);
+
+  EXPECT_EQ(2,count);
+
+  EXPECT_EQ(2,couples.size());
+  EXPECT_EQ(expected,couples);
 
 }
