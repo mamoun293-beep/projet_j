@@ -19,24 +19,17 @@ include(GoogleTest)
 #hello_word
 add_executable(projet_j src/main.cpp)
 
-#exo1
-add_executable(two_sum src/two_sum.cpp)
-target_include_directories(two_sum PRIVATE /home/yanis/dev/projet_j/include)
-
 #tests
 add_library(two_sum_lib src/two_sum.cpp)
 target_include_directories(two_sum_lib PUBLIC /home/yanis/dev/projet_j/include)
 
-add_executable(
-  test_two_sum
-  tests/test_two_sum.cpp
-)
-target_include_directories(test_two_sum PRIVATE /home/yanis/dev/projet_j/include)
-target_link_libraries(
-  test_two_sum
-  PRIVATE
-  two_sum_lib
-  GTest::gtest_main
-)
+file(GLOB TEST_SOURCES CONFIGURE_DEPENDS "${CMAKE_SOURCE_DIR}/tests/test_*.cpp")
+message(STATUS "Adding tests: ${TEST_SOURCES}")
 
-gtest_discover_tests(test_two_sum)
+foreach(test_src ${TEST_SOURCES})
+    get_filename_component(test_name ${test_src} NAME_WE)
+    add_executable(${test_name} ${test_src})
+    target_include_directories(${test_name} PRIVATE ${CMAKE_SOURCE_DIR}/include)
+    target_link_libraries(${test_name} PRIVATE GTest::gtest_main two_sum_lib)
+    add_test(NAME ${test_name} COMMAND ${test_name})
+endforeach()

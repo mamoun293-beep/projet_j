@@ -18,10 +18,14 @@ std::vector<int> generate_sorted_vector(int min, int max, size_t size)
     return input_tab;
 }
 
-std::vector<std::pair<int,int>> two_sum(const std::vector<int>& research,int T, int& count)
+std::vector<std::pair<int,int>> two_sum(const std::vector<int>& research,int T)
 {
 /***************INIT******************************/
-
+        if(research.empty() || research.size() < 2)
+    {
+        throw std::invalid_argument("the input vector is empty or have less than 2 elements");
+    }
+    
     std::vector<std::pair<int,int>> solutions;
     const int *x = research.data();
     const int *y = research.data() + research.size() - 1;
@@ -31,9 +35,7 @@ std::vector<std::pair<int,int>> two_sum(const std::vector<int>& research,int T, 
     {
         if(*x+*y == T)
         {
-            std::cout << "couple trouvé indice : " << x - research.data() <<" ; "<< y - research.data() << "\n";
-            solutions.insert(solutions.begin(),std::pair(x - research.data(),y - research.data()));
-            count++;
+            solutions.push_back(std::pair(x - research.data(),y - research.data()));
             x++;
         }
         else if (*x+*y < T)
@@ -46,19 +48,4 @@ std::vector<std::pair<int,int>> two_sum(const std::vector<int>& research,int T, 
         }
     }
     return solutions;
-}
-
-int main() {
-    int min = 0;
-    int max = 12;
-    int size = 12;
-    int T = 12;
-    std::vector<int> research;
-    int count = 0;
-
-    research = generate_sorted_vector(min,max,size);
-    auto couples = two_sum(research,T,count);
-
-    std::cout << "couples trouvé : " << count << "\n";
-    return 0;
 }
